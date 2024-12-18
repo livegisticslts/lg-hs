@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/39756569.js"></script>
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const token = getQueryParam('token');
+      if (token) {
+        console.log('Loading HubSpot widget with token:', token);
+        const interval = setInterval(() => {
+          if (window.HubSpotConversations && HubSpotConversations.widget) {
+            clearInterval(interval);
+            HubSpotConversations.widget.load({
+              identification: {
+                token: token
+              }
+            });
+          } else {
+            console.log('HubSpotConversations not yet defined...');
+          }
+        }, 500);
+      } else {
+        console.error('Token not provided in query parameters.');
+      }
+    });
+  </script>
+</head>
+<body>
+  <h1>Loading Chat Widget...</h1>
+</body>
+</html>
